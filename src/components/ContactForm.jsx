@@ -7,48 +7,81 @@ const ContactForm = () => {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
 
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   setLoading(true);
+
+  //   // Google Apps Script URL (replace with your actual URL)
+  //   const googleScriptURL = 'https://script.google.com/macros/s/AKfycbw4MThaAg9nfCTvc7uixdr27VlsMMD3lSA1WirWRe4EavRAAdg8WDzhXg2O2baITXTh7g/exec';
+
+  //   // // Send form data to Google Apps Script
+  //   // fetch(googleScriptURL, {
+  //   //   method: 'POST',
+  //   //   mode: 'cors',
+  //   //   headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+  //   //   body: `name=${encodeURIComponent(name)}&email=${encodeURIComponent(email)}&message=${encodeURIComponent(message)}`
+  //   // })
+  //   //   .then(response => {
+  //   //     setLoading(false);
+  //   //     setSuccess(true);
+
+  //   //     // Redirect to WhatsApp community after successful submission
+  //   //     window.location.href = 'https://chat.whatsapp.com/HqjtY7zlduK5eaLXFIyJmk';
+  //   //   })
+  //   //   .catch(error => {
+  //   //     setLoading(false);
+  //   //     console.error('Error!', error.message);
+  //   //   });
+
+  //   fetch(googleScriptURL, {
+  //     method: 'POST',
+  //     mode: 'no-cors',
+  //     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+  //     body: `name=${encodeURIComponent(name)}&email=${encodeURIComponent(email)}&message=${encodeURIComponent(message)}`
+  //   })
+  //     .then(() => {
+  //       setLoading(false);
+  //       setSuccess(true);
+  //       window.location.href = 'https://chat.whatsapp.com/HqjtY7zlduK5eaLXFIyJmk'; // Redirect after successful submission
+  //     })
+  //     .catch(error => {
+  //       setLoading(false);
+  //       console.error('Error!', error.message);
+  //     });
+  // };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     setLoading(true);
 
-    // Google Apps Script URL (replace with your actual URL)
-    const googleScriptURL = 'https://script.google.com/macros/s/AKfycbw4MThaAg9nfCTvc7uixdr27VlsMMD3lSA1WirWRe4EavRAAdg8WDzhXg2O2baITXTh7g/exec';
+    // Replace with your actual Google Form URL
+    const googleFormURL = 'https://docs.google.com/forms/u/0/d/e/1FAIpQLSehmVieRND7n7LjqgrLJBkJxqyGCr8E8AAUEIi28eLUNdJaQw/formResponse';
+    
+    const formData = new FormData();
+    // Replace with the correct entry IDs for your form fields
+    formData.append('entry.1663324498', name);  // Replace entry number with your form's Name field entry number
+    formData.append('entry.1645069427', email); // Replace entry number with your form's Email field entry number
+    formData.append('entry.860220854', message); // Replace entry number with your form's Message field entry number
 
-    // // Send form data to Google Apps Script
-    // fetch(googleScriptURL, {
-    //   method: 'POST',
-    //   mode: 'cors',
-    //   headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-    //   body: `name=${encodeURIComponent(name)}&email=${encodeURIComponent(email)}&message=${encodeURIComponent(message)}`
-    // })
-    //   .then(response => {
-    //     setLoading(false);
-    //     setSuccess(true);
-
-    //     // Redirect to WhatsApp community after successful submission
-    //     window.location.href = 'https://chat.whatsapp.com/HqjtY7zlduK5eaLXFIyJmk';
-    //   })
-    //   .catch(error => {
-    //     setLoading(false);
-    //     console.error('Error!', error.message);
-    //   });
-
-    fetch(googleScriptURL, {
+    fetch(googleFormURL, {
       method: 'POST',
-      mode: 'no-cors',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: `name=${encodeURIComponent(name)}&email=${encodeURIComponent(email)}&message=${encodeURIComponent(message)}`
+      mode: 'no-cors', // Use 'no-cors' since Google Forms does not allow CORS
+      body: formData
     })
-      .then(() => {
-        setLoading(false);
-        setSuccess(true);
-        window.location.href = 'https://chat.whatsapp.com/HqjtY7zlduK5eaLXFIyJmk'; // Redirect after successful submission
-      })
-      .catch(error => {
-        setLoading(false);
-        console.error('Error!', error.message);
-      });
+    .then(() => {
+      setLoading(false);
+      setSuccess(true);
+
+      // Redirect to WhatsApp community after submission
+      window.location.href = 'https://chat.whatsapp.com/HqjtY7zlduK5eaLXFIyJmk';
+    })
+    .catch((error) => {
+      setLoading(false);
+      console.error('Error!', error);
+    });
   };
+
+
 
   return (
     <form onSubmit={handleSubmit} className="max-w-lg mx-auto bg-white p-6 rounded-md shadow-lg">
