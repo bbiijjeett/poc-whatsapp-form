@@ -59,9 +59,9 @@ const ContactForm = () => {
     
     const formData = new FormData();
     // Replace with the correct entry IDs for your form fields
-    formData.append('entry.1663324498', name);  // Replace entry number with your form's Name field entry number
-    formData.append('entry.1645069427', email); // Replace entry number with your form's Email field entry number
-    formData.append('entry.860220854', message); // Replace entry number with your form's Message field entry number
+    formData.append('entry.1329550380', name);  // Replace entry number with your form's Name field entry number
+    formData.append('entry.1864051385', email); // Replace entry number with your form's Email field entry number
+    formData.append('entry.1960713341', message); // Replace entry number with your form's Message field entry number
 
     fetch(googleFormURL, {
       method: 'POST',
